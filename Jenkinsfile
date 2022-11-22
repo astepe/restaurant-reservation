@@ -2,8 +2,6 @@ pipeline{
 
     agent any
     environment{
-        AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
-        AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
         AWS_DEFAULT_REGION="us-east-1"
         SKIP="N"
         TERRADESTROY="N"
@@ -22,8 +20,15 @@ pipeline{
                 environment name:'SKIP',value:'N'
             }
             steps{
-                sh'''
-                aws s3 mb s3://<bucket_name>'''
+                withCredentials([[
+                    class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
+                    sh'''
+                    aws s3 mb s3://<bucket_name>'''
+                }
                 
             }
         }
@@ -36,18 +41,32 @@ pipeline{
              stages{
                         stage('Validate Ansible Infra'){
                             steps{
+                                withCredentials([[
+                                class: 'AmazonWebServicesCredentialsBinding',
+                                credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
+                                accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                                secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                            ]]) {
                                 sh '''
                                 cd ansible_infra
                                 terraform init
                                 terraform validate'''
                             }
+                            }
                         }
                         stage('Deploy Ansible Infra'){
                             steps{
+                                withCredentials([[
+                    class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
                                 sh '''
                                 cd ansible_infra
                                 terraform plan -out outfile
                                 terraform apply outfile'''
+                            }
                             }
                         }
                     }
@@ -62,20 +81,34 @@ pipeline{
                 }
              stages{
                         stage('Validate n/w Infra'){
+                            withCredentials([[
+                    class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
                             steps{
                                 sh '''
                                 cd networking
                                 terraform init
                                 terraform validate'''
                             }
+                }
                         }
                         stage('Deploy n/w Infra'){
+                            withCredentials([[
+                    class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
                             steps{
                                 sh '''
                                 cd networking
                                 terraform plan -out outfile
                                 terraform apply outfile'''
                             }
+                        }
                         }
                     }
 
@@ -93,19 +126,33 @@ pipeline{
                 }
                     stages{
                         stage('Validate inst Infra'){
+                            withCredentials([[
+                    class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
                             steps{
                                 sh '''
                                 cd instances
                                 terraform init
                                 terraform validate'''
                             }
+                }
                         }
                         stage('Deploy inst Infra'){
                             steps{
+                                withCredentials([[
+                    class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
                                 sh '''
                                 cd instances
                                 terraform plan -out outfile
                                 terraform apply outfile'''
+                            }
                             }
                         }
                         stage('Prepare inv file'){
@@ -133,6 +180,12 @@ pipeline{
                             }
                     steps{
                         script {
+                                withCredentials([[
+                                    class: 'AmazonWebServicesCredentialsBinding',
+                                    credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
+                                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                                ]]) {
                                     sh """
                                     cd ansible_infra
                                     cd ansible_role
@@ -143,12 +196,19 @@ pipeline{
                                     """
 
                                 }
+                        }
                     }
                 }
 
                 stage("test kubectl"){
                     steps{
                         script {
+                                withCredentials([[
+                                class: 'AmazonWebServicesCredentialsBinding',
+                                credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
+                                accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                                secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                            ]]) {
                                     sh """
                                     cd ansible_infra
                                     cd ansible_playbooks
@@ -157,6 +217,7 @@ pipeline{
                                     """
 
                                 }
+                        }
                     }
                 }
             }
@@ -178,18 +239,32 @@ pipeline{
                     stages{
                         stage('Validate asg Infra'){
                             steps{
+                                withCredentials([[
+                    class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
                                 sh '''
                                 cd node_asg
                                 terraform init
                                 terraform validate'''
                             }
+                            }
                         }
                         stage('Deploy asg Infra'){
                             steps{
+                                withCredentials([[
+                    class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
                                 sh '''
                                 cd node_asg
                                 terraform plan -out outfile
                                 terraform apply outfile'''
+                            }
                             }
                         }
                     }
@@ -201,6 +276,12 @@ pipeline{
                             }
                     steps{
                         script {
+                                withCredentials([[
+                                class: 'AmazonWebServicesCredentialsBinding',
+                                credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
+                                accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                                secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                            ]]) {
                                     sh """
                                     cd ansible_infra
                                     cd ansible_playbooks
@@ -211,6 +292,7 @@ pipeline{
                                     """
 
                                 }
+                        }
                     }
                 }
 
@@ -220,6 +302,12 @@ pipeline{
                             }
                     steps{
                         script {
+                                withCredentials([[
+                                    class: 'AmazonWebServicesCredentialsBinding',
+                                    credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
+                                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                                ]]) {
                                     sh """
                                     cd ansible_infra
                                     cd ansible_playbooks
@@ -228,6 +316,7 @@ pipeline{
                                     """
 
                                 }
+                        }
                     }
                 }
 
@@ -240,6 +329,12 @@ pipeline{
                             }
                     steps{
                         script {
+                                withCredentials([[
+                                class: 'AmazonWebServicesCredentialsBinding',
+                                credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
+                                accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                                secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                            ]]) {
                                     sh """
                                     cd ansible_infra
                                     cd ansible_role
@@ -256,12 +351,19 @@ pipeline{
                                     """
 
                                 }
+                        }
                     }
                 }
 
                 stage("test kubectl for nodes"){
                     steps{
                         script {
+                            withCredentials([[
+                    class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
                                     sh """
                                     cd ansible_infra
                                     cd ansible_playbooks
@@ -270,6 +372,7 @@ pipeline{
                                     """
 
                                 }
+                        }
                     }
                 }
             }
@@ -283,41 +386,69 @@ pipeline{
             stages{
                 stage("Destroy Ansible Infra"){
                     steps{
+                        withCredentials([[
+                    class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
                         sh '''
                             cd ansible_infra
                             terraform init
                             terraform destroy -auto-approve
                             '''
                     }
+                    }
                 }
 
                 stage("Destroy instance Infra"){
                     steps{
+                        withCredentials([[
+                    class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
                         sh '''
                             cd instances
                             terraform init
                             terraform destroy -auto-approve
                             '''
                     }
+                    }
                 }
 
                 stage("Destroy node Infra"){
                     steps{
+                        withCredentials([[
+                    class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
                         sh '''
                             cd node_asg
                             terraform init
                             terraform destroy -auto-approve
                             '''
                     }
+                    }
                 }
 
                 stage("Destroy n/w Infra"){
                     steps{
+                        withCredentials([[
+                    class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
                         sh '''
                             cd networking
                             terraform init
                             terraform destroy -auto-approve
                             '''
+                    }
                     }
                 }
 
@@ -329,9 +460,16 @@ pipeline{
 
                 stage("Destroy state bucket"){
                     steps{
+                        withCredentials([[
+                            class: 'AmazonWebServicesCredentialsBinding',
+                            credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
+                            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                        ]]) {
                         sh '''
                             aws s3 rb s3://<bucket_name> --force
                             '''
+                    }
                     }
                 }
             }
