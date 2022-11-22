@@ -81,13 +81,13 @@ pipeline{
                 }
              stages{
                         stage('Validate n/w Infra'){
+                            steps{
                             withCredentials([[
                     class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]) {
-                            steps{
                                 sh '''
                                 cd networking
                                 terraform init
@@ -96,13 +96,13 @@ pipeline{
                 }
                         }
                         stage('Deploy n/w Infra'){
+                            steps{
                             withCredentials([[
                     class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]) {
-                            steps{
                                 sh '''
                                 cd networking
                                 terraform plan -out outfile
@@ -126,13 +126,13 @@ pipeline{
                 }
                     stages{
                         stage('Validate inst Infra'){
+                            steps{
                             withCredentials([[
                     class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]) {
-                            steps{
                                 sh '''
                                 cd instances
                                 terraform init
