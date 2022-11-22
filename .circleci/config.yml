@@ -1,30 +1,11 @@
-# CircleCI configuration file
 version: 2.1
-
 jobs:
-  # Job one with a unique name
-  say_hello:
+  build:
     docker:
-     - image: cimg/base:2022.05
-       auth:
-          username: astepe
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+      - image: cimg/rust:1.65.0
     steps:
-      - run: echo "Say hello to YAML!"
-  # Job two with a unique name
-  say_goodbye:
-    docker:
-     - image: cimg/base:2022.05
-       auth:
-          username: astepe
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-    steps:
-      - run: echo "Say goodbye to YAML!"
-
-workflows:
-  # Name of workflow
-  hello_and_goodbye:
-    # List of jobs that will run
-    jobs:
-      - say_hello
-      - say_goodbye
+      - checkout
+      - run:
+          name: Run Cargo Build
+          command: |
+            ./build.sh
