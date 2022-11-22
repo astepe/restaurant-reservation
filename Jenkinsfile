@@ -27,7 +27,7 @@ pipeline{
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]) {
                     sh'''
-                    aws s3 mb s3://<bucket_name>'''
+                    aws s3 mb s3://restaurant-reservation-tf-state'''
                 }
                 
             }
@@ -467,7 +467,7 @@ pipeline{
                             secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                         ]]) {
                         sh '''
-                            aws s3 rb s3://<bucket_name> --force
+                            aws s3 rb s3://restaurant-reservation-tf-state --force
                             '''
                     }
                     }
