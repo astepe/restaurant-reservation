@@ -6,8 +6,8 @@ pipeline{
         SKIP="N"
         TERRADESTROY="N"
         FIRST_DEPLOY="Y"
-        STATE_BUCKET="<bucket_name>"
-        ANSIBLE_BUCKET_NAME="<ansible_bucket>"
+        STATE_BUCKET="restaurant-reservation-tf-state"
+        ANSIBLE_BUCKET_NAME="restaurant-reservation-ansible"
     }
 
 
