@@ -21,7 +21,7 @@ pipeline{
             }
             steps{
                 withCredentials([[
-                    class: 'AmazonWebServicesCredentialsBinding',
+                    $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
@@ -42,7 +42,7 @@ pipeline{
                         stage('Validate Ansible Infra'){
                             steps{
                                 withCredentials([[
-                                class: 'AmazonWebServicesCredentialsBinding',
+                                $class: 'AmazonWebServicesCredentialsBinding',
                                 credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                                 accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
@@ -57,7 +57,7 @@ pipeline{
                         stage('Deploy Ansible Infra'){
                             steps{
                                 withCredentials([[
-                    class: 'AmazonWebServicesCredentialsBinding',
+                    $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
@@ -83,7 +83,7 @@ pipeline{
                         stage('Validate n/w Infra'){
                             steps{
                             withCredentials([[
-                    class: 'AmazonWebServicesCredentialsBinding',
+                    $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
@@ -98,7 +98,7 @@ pipeline{
                         stage('Deploy n/w Infra'){
                             steps{
                             withCredentials([[
-                    class: 'AmazonWebServicesCredentialsBinding',
+                    $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
@@ -128,7 +128,7 @@ pipeline{
                         stage('Validate inst Infra'){
                             steps{
                             withCredentials([[
-                    class: 'AmazonWebServicesCredentialsBinding',
+                    $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
@@ -143,7 +143,7 @@ pipeline{
                         stage('Deploy inst Infra'){
                             steps{
                                 withCredentials([[
-                    class: 'AmazonWebServicesCredentialsBinding',
+                    $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
@@ -181,7 +181,7 @@ pipeline{
                     steps{
                         script {
                                 withCredentials([[
-                                    class: 'AmazonWebServicesCredentialsBinding',
+                                    $class: 'AmazonWebServicesCredentialsBinding',
                                     credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
@@ -204,7 +204,7 @@ pipeline{
                     steps{
                         script {
                                 withCredentials([[
-                                class: 'AmazonWebServicesCredentialsBinding',
+                                $class: 'AmazonWebServicesCredentialsBinding',
                                 credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                                 accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
@@ -240,7 +240,7 @@ pipeline{
                         stage('Validate asg Infra'){
                             steps{
                                 withCredentials([[
-                    class: 'AmazonWebServicesCredentialsBinding',
+                    $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
@@ -255,7 +255,7 @@ pipeline{
                         stage('Deploy asg Infra'){
                             steps{
                                 withCredentials([[
-                    class: 'AmazonWebServicesCredentialsBinding',
+                    $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
@@ -277,7 +277,7 @@ pipeline{
                     steps{
                         script {
                                 withCredentials([[
-                                class: 'AmazonWebServicesCredentialsBinding',
+                                $class: 'AmazonWebServicesCredentialsBinding',
                                 credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                                 accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
@@ -303,7 +303,7 @@ pipeline{
                     steps{
                         script {
                                 withCredentials([[
-                                    class: 'AmazonWebServicesCredentialsBinding',
+                                    $class: 'AmazonWebServicesCredentialsBinding',
                                     credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
@@ -330,7 +330,7 @@ pipeline{
                     steps{
                         script {
                                 withCredentials([[
-                                class: 'AmazonWebServicesCredentialsBinding',
+                                $class: 'AmazonWebServicesCredentialsBinding',
                                 credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                                 accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
@@ -359,7 +359,7 @@ pipeline{
                     steps{
                         script {
                             withCredentials([[
-                    class: 'AmazonWebServicesCredentialsBinding',
+                    $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
@@ -387,7 +387,7 @@ pipeline{
                 stage("Destroy Ansible Infra"){
                     steps{
                         withCredentials([[
-                    class: 'AmazonWebServicesCredentialsBinding',
+                    $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
@@ -404,7 +404,7 @@ pipeline{
                 stage("Destroy instance Infra"){
                     steps{
                         withCredentials([[
-                    class: 'AmazonWebServicesCredentialsBinding',
+                    $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
@@ -421,7 +421,7 @@ pipeline{
                 stage("Destroy node Infra"){
                     steps{
                         withCredentials([[
-                    class: 'AmazonWebServicesCredentialsBinding',
+                    $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
@@ -438,7 +438,7 @@ pipeline{
                 stage("Destroy n/w Infra"){
                     steps{
                         withCredentials([[
-                    class: 'AmazonWebServicesCredentialsBinding',
+                    $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
@@ -461,7 +461,7 @@ pipeline{
                 stage("Destroy state bucket"){
                     steps{
                         withCredentials([[
-                            class: 'AmazonWebServicesCredentialsBinding',
+                            $class: 'AmazonWebServicesCredentialsBinding',
                             credentialsId: '849379e0-d4d2-4661-8186-ab0b128e68b7',
                             accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                             secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
