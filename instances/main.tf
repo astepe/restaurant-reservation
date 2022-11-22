@@ -6,8 +6,8 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "<bucket_name>"
-    key    = "<state_name>"
+    bucket = "restaurant-reservation-tf-state"
+    key    = "instances.tfstate"
     region = "us-east-1"
   }
 }
