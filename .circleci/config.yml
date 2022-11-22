@@ -6,7 +6,7 @@ jobs:
   say_hello:
     docker:
      - image: cimg/base:2022.05
-        auth:
+       auth:
           username: astepe
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
@@ -15,7 +15,7 @@ jobs:
   say_goodbye:
     docker:
      - image: cimg/base:2022.05
-        auth:
+       auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
