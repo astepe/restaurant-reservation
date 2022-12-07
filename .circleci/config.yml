@@ -1,12 +1,14 @@
 version: 2.1
-jobs:
-  build:
-    docker:
-      - image: cimg/rust:1.65.0
-    steps:
-      - checkout
-      - run:
-          name: Run Cargo Build
-          command: |
-            sudo chmod +x build.sh
-            ./build.sh
+
+orbs:
+  aws-ecr: circleci/aws-ecr@8.1.3
+
+workflows:
+  build_and_push:
+    jobs:
+      - aws-ecr/build_and_push_image:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          account-url: AWS_ECR_ACCOUNT_URL
+          repo: CIRCLE_PROJECT_REPONAME
+          tag: CIRCLE_BUILD_NUM
