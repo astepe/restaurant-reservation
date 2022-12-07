@@ -8,4 +8,4 @@ workflows:
     jobs:
       - aws-ecr/build-and-push-image:
           repo: restaurant-reservation
-          tag: CIRCLE_BUILD_NUM
+          tag: $CIRCLE_BUILD_NUM
