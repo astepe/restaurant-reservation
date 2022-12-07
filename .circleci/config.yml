@@ -8,5 +8,4 @@ workflows:
     jobs:
       - aws-ecr/build-and-push-image:
           repo: restaurant-reservation
-          registry-id: 372988405119
           tag: CIRCLE_BUILD_NUM
