@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restaurant-reservation
+  namespace: restaurant-reservation
+  labels:
+    app: restaurant-reservation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: restaurant-reservation
+  template:
+    metadata:
+      labels:
+        app: restaurant-reservation
+    spec:
+      containers:
+      - name: restaurant-reservation
+        image: restaurant-reservation
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8000
+
+
