@@ -58,7 +58,6 @@ jobs:
           name: Pull Updated code from repo
           command: git pull origin $CIRCLE_BRANCH
       - kubernetes/install
-      - aws-cli/install
       # - azure-aks/update-kubeconfig-with-credentials:
       #     cluster-name: << parameters.cluster-name >>
       #     install-kubectl: true
