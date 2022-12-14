@@ -90,7 +90,7 @@ workflows:
           tag: $CIRCLE_SHA1,latest
       - bump-docker-tag-kustomize:
           requires:
-            - aws-ecr/build-and-push-image
+            - docker/publish
       - argocd-configure:
           requires:
             - bump-docker-tag-kustomize
