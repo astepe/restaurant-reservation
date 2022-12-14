@@ -1,11 +1,14 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - deployment.yaml
-  - service.yaml
-  - namespace.yaml
+- deployment.yaml
+- service.yaml
+- namespace.yaml
 namespace: restaurant-reservation
 images:
-  - name: restaurant-reservation
-    newName: restaurant-reservation
-    newTag: v1
+- name: ec2-restaurant-reservation-argocd
+  newName: /ec2-restaurant-reservation-argocd
+  newTag: b4247aafb24298e1bc622b427c4e5d98db5142d9
+- name: restaurant-reservation
+  newName: restaurant-reservation
+  newTag: v1
