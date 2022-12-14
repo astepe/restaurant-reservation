@@ -8,4 +8,4 @@ namespace: restaurant-reservation
 images:
 - name: restaurant-reservation
   newName: restaurant-reservation
-  newTag: v1
+  newTag: "100"
