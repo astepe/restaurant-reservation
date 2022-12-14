@@ -8,4 +8,4 @@ namespace: restaurant-reservation
 images:
 - name: restaurant-reservation
   newName: astepe/restaurant-reservation
-  newTag: 38152324a2132bb5b2d5acbda804d4113ee2d3fd
+  newTag: a0ec04ba645ea33c93fb50596232b4e9fca39c62
