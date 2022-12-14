@@ -6,9 +6,9 @@ metadata:
 spec:
   destination:
     namespace: restaurant-reservation
-    server: "https://44.208.158.69:16443"
+    server: "https://kubernetes.default.svc"
   source:
     path: manifests
     repoURL: "https://github.com/astepe/restaurant-reservation"
-    targetRevision: circleci-project-setup
+    targetRevision: circleci
   project: default
