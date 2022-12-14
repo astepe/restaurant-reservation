@@ -6,6 +6,6 @@ resources:
 - namespace.yaml
 namespace: restaurant-reservation
 images:
-- name: restaurant-reservation
+- name: astepe/restaurant-reservation
   newName: astepe/restaurant-reservation
   newTag: d2ab3a2513ac3a2d49bd3def1a018b46df1e0928
