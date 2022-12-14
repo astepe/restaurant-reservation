@@ -7,7 +7,7 @@ resources:
 namespace: restaurant-reservation
 images:
 - newName: /
-  newTag: 9ef21caf59d1285eea37fe7fe299cd2da71e8935
+  newTag: 4e673788e50519091ecd7abff3c74d5133389f9e
 - name: restaurant-reservation
   newName: restaurant-reservation
   newTag: v1
