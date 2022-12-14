@@ -12,5 +12,5 @@ images:
   newName: ec2-restaurant-reservation-argocd
   newTag: "90"
 - name: restaurant-reservation
-  newName: /restaurant-reservation
-  newTag: f2d25425afba8338dc3758b1fe40775c51490cdb
+  newName: restaurant-reservation
+  newTag: "95"
