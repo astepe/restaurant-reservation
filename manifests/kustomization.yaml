@@ -10,5 +10,5 @@ images:
   newName: astepe/ec2-restaurant-reservation-argocd
   newTag: 38152324a2132bb5b2d5acbda804d4113ee2d3fd
 - name: restaurant-reservation
-  newName: restaurant-reservation
-  newTag: "100"
+  newName: astepe/restaurant-reservation
+  newTag: 38152324a2132bb5b2d5acbda804d4113ee2d3fd
