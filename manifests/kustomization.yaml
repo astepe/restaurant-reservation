@@ -9,5 +9,5 @@ images:
 - newName: /
   newTag: c3cfaec99332c1eacda67d7d413525d18a27069f
 - name: restaurant-reservation
-  newName: restaurant-reservation
-  newTag: v1
+  newName: /restaurant-reservation
+  newTag: 20900092854f4eb5029dee7ec8d5e48c9f9cae16
