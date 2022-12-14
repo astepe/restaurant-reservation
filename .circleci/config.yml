@@ -81,7 +81,7 @@ jobs:
             git checkout $CIRCLE_BRANCH
             git pull origin $CIRCLE_BRANCH
             cd manifests
-            kustomize edit set image $APP_NAME=$DOCKER_LOGIN/$APP_NAME:$CIRCLE_SHA1
+            kustomize edit set image $APP_NAME=$APP_NAME:$CIRCLE_BUILD_NUM
       - add_ssh_keys:
           fingerprints:
             - "$SSH_FINGERPRINT"
