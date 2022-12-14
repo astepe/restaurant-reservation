@@ -9,8 +9,8 @@ images:
 - newName: /
   newTag: c3cfaec99332c1eacda67d7d413525d18a27069f
 - name: ec2-restaurant-reservation-argocd
-  newName: /ec2-restaurant-reservation-argocd
-  newTag: f78fc25323b969f260963b4a24ea9bc0ecb7b0a2
+  newName: ec2-restaurant-reservation-argocd
+  newTag: "90"
 - name: restaurant-reservation
   newName: /restaurant-reservation
   newTag: f2d25425afba8338dc3758b1fe40775c51490cdb
