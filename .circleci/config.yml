@@ -2,8 +2,6 @@ version: 2.1
 
 orbs:
   aws-ecr: circleci/aws-ecr@8.1.3
-  aws-cli: circleci/aws-cli@3.1.4
-  azure-aks: circleci/azure-aks@0.3.0
   kubernetes: circleci/kubernetes@1.3.1
 
 jobs:
@@ -42,27 +40,23 @@ jobs:
           command: argocd app wait $APP_NAME
 
   argocd-configure:
-    executor: azure-aks/default
-    parameters:
-      cluster-name:
-        description: |
-          Name of the AKS cluster
-        type: string
-      resource-group:
-        description: |
-          Resource group that the cluster is in
-        type: string
+    docker:
+      - image: cimg/base:stable
     steps:
       - checkout
       - run:
           name: Pull Updated code from repo
           command: git pull origin $CIRCLE_BRANCH
       - kubernetes/install
-      # - azure-aks/update-kubeconfig-with-credentials:
-      #     cluster-name: << parameters.cluster-name >>
-      #     install-kubectl: true
-      #     perform-login: true
-      #     resource-group: << parameters.resource-group >>
+      - run:
+          name: Update Kubeconfig Credentials
+          command: |
+            kubectl config set-cluster restaurant-reservation
+            kubectl config set clusters.restaurant-reservation.server https://44.208.158.69:16443
+            kubectl config set clusters.restaurant-reservation.certificate-authority-data $KUBE_CERT_AUTH_DATA
+            kubectl config set-credentials admin --token=$KUBE_TOKEN
+            kubectl config set-context restaurant-reservation --cluster=restaurant-reservation --user=admin
+            kubectl config use-context restaurant-reservation
       - kubernetes/create-or-update-resource:
           resource-file-path: argocd/config.yaml
 
@@ -105,10 +99,8 @@ workflows:
           tag: $CIRCLE_BUILD_NUM
       - bump-docker-tag-kustomize:
           requires:
-            - docker/publish
+            - aws-ecr/build-and-push-image
       - argocd-configure:
-          cluster-name: $CLUSTER_NAME
-          resource-group: $RESOURCE_GROUP
           requires:
             - bump-docker-tag-kustomize
       - argocd-manual-sync:
