@@ -11,4 +11,4 @@ spec:
     app: restaurant-reservation
   ports:
   - port: 80
-    targetPort: restaurant-reservation-rust-app
+    targetPort: 8000
