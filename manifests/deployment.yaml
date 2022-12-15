@@ -15,14 +15,17 @@ spec:
       labels:
         app: restaurant-reservation
     spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
       containers:
-      - name: restaurant-reservation
-        image: restaurant-reservation
+      - name: k8s-restaurant-reservation-argocd
+        image: k8s-restaurant-reservation-argocd
         resources:
           limits:
             memory: "128Mi"
             cpu: "500m"
         ports:
-        - containerPort: 8000
+        - name: http
+          containerPort: 8000
 
 

@@ -2,6 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: restaurant-reservation
+  namespace: restaurant-reservation
+  labels:
+    app: restaurant-reservation
 spec:
   type: LoadBalancer
   selector:

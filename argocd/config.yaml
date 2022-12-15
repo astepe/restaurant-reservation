@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: restaurant-reservation
+  name: k8s-restaurant-reservation-argocd
   namespace: argocd
 spec:
   destination:
