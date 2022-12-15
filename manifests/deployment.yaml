@@ -25,7 +25,7 @@ spec:
             memory: "128Mi"
             cpu: "500m"
         ports:
-        - name: restaurant-reservation-rust-app
+        - name: rust-app
           containerPort: 8000
 
 
