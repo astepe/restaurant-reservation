@@ -9,6 +9,3 @@ images:
 - name: k8s-restaurant-reservation-argocd
   newName: astepe/k8s-restaurant-reservation-argocd
   newTag: b0673c26a692d8480fa87c9447345a04e287e8cd
-- name: restaurant-reservation
-  newName: astepe/restaurant-reservation
-  newTag: 2fdc03f16528447c680351f2bcc98f1d85ff8029

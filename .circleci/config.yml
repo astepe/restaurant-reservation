@@ -21,10 +21,10 @@ jobs:
           command: argocd login $ARGOCD_SERVER --insecure --username $ARGOCD_USERNAME --password $ARGOCD_PASSWORD
       - run:
           name: Manual sync
-          command: argocd app sync $APP_NAME
+          command: argocd app sync k8s-restaurant-reservation-argocd
       - run:
           name: Wait for application to reach a synced and healthy state
-          command: argocd app wait $APP_NAME
+          command: argocd app wait k8s-restaurant-reservation-argocd
 
   argocd-configure:
     docker:
@@ -68,7 +68,7 @@ jobs:
             git checkout $CIRCLE_BRANCH
             git pull origin $CIRCLE_BRANCH
             cd manifests
-            kustomize edit set image $APP_NAME=$DOCKER_LOGIN/$APP_NAME:$CIRCLE_SHA1
+            kustomize edit set image k8s-restaurant-reservation-argocd=$DOCKER_LOGIN/k8s-restaurant-reservation-argocd:$CIRCLE_SHA1
       - add_ssh_keys:
           fingerprints:
             - "$SSH_FINGERPRINT"
@@ -86,7 +86,7 @@ workflows:
   build-and-deploy:
     jobs:
       - docker/publish:
-          image: $DOCKER_LOGIN/$APP_NAME
+          image: $DOCKER_LOGIN/k8s-restaurant-reservation-argocd
           tag: $CIRCLE_SHA1,latest
       - bump-docker-tag-kustomize:
           requires:
