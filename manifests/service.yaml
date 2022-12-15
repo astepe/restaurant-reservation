@@ -6,9 +6,9 @@ metadata:
   labels:
     app: restaurant-reservation
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: restaurant-reservation
   ports:
   - port: 80
-    targetPort: 8000
+    targetPort: restaurant-reservation-rust-app

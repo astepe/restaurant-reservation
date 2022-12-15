@@ -16,7 +16,7 @@ spec:
         app: restaurant-reservation
     spec:
       nodeSelector:
-        "beta.kubernetes.io/os": linux
+        "kubernetes.io/os": linux
       containers:
       - name: k8s-restaurant-reservation-argocd
         image: k8s-restaurant-reservation-argocd
@@ -25,7 +25,7 @@ spec:
             memory: "128Mi"
             cpu: "500m"
         ports:
-        - name: http
+        - name: restaurant-reservation-rust-app
           containerPort: 8000
 
 
