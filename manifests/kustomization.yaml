@@ -8,4 +8,4 @@ namespace: restaurant-reservation
 images:
 - name: k8s-restaurant-reservation-argocd
   newName: astepe/k8s-restaurant-reservation-argocd
-  newTag: 2b822550d390a442812958a15cd3472df3df9a06
+  newTag: 3160b0bd00569778eea0e48c269288c31e9c3a29
