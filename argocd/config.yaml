@@ -10,5 +10,5 @@ spec:
   source:
     path: manifests
     repoURL: "https://github.com/astepe/restaurant-reservation"
-    targetRevision: circleci
+    targetRevision: main
   project: default
