@@ -6,6 +6,6 @@ resources:
   - web/namespace.yaml
 namespace: restaurant-reservation
 images:
-- name: restaurant-reservation
-  newName: astepe/restaurant-reservation
-  newTag: 2fdc03f16528447c680351f2bcc98f1d85ff8029
+- name: k8s-restaurant-reservation-argocd
+  newName: astepe/k8s-restaurant-reservation-argocd
+  newTag: 3160b0bd00569778eea0e48c269288c31e9c3a29
