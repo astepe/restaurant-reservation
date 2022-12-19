@@ -68,7 +68,7 @@ jobs:
             git checkout $CIRCLE_BRANCH
             git pull origin $CIRCLE_BRANCH
             cd manifests
-            kustomize edit set image k8s-restaurant-reservation-argocd=$DOCKER_LOGIN/k8s-restaurant-reservation-argocd:$CIRCLE_SHA1
+            kustomize edit set image restaurant-reservation=$DOCKER_LOGIN/restaurant-reservation:$CIRCLE_SHA1
       - add_ssh_keys:
           fingerprints:
             - "$SSH_FINGERPRINT"
@@ -86,7 +86,7 @@ workflows:
   build-and-deploy:
     jobs:
       - docker/publish:
-          image: $DOCKER_LOGIN/k8s-restaurant-reservation-argocd
+          image: $DOCKER_LOGIN/restaurant-reservation
           tag: $CIRCLE_SHA1,latest
       - bump-docker-tag-kustomize:
           requires:

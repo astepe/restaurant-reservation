@@ -18,12 +18,12 @@ spec:
       nodeSelector:
         "kubernetes.io/os": linux
       containers:
-      - name: k8s-restaurant-reservation-argocd
-        image: k8s-restaurant-reservation-argocd
+      - name: restaurant-reservation
+        image: restaurant-reservation
         resources:
           limits:
-            memory: "128Mi"
-            cpu: "500m"
+            memory: "1Gi"
+            cpu: "1"
         ports:
         - name: rust-app
           containerPort: 8000
