@@ -1,11 +1,12 @@
 # apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - web/deployment.yaml
-  - web/service.yaml
-  - web/namespace.yaml
+- web/deployment.yaml
+- web/service.yaml
+- web/namespace.yaml
 namespace: restaurant-reservation
 images:
 - name: restaurant-reservation
   newName: astepe/restaurant-reservation
-  newTag: 2fdc03f16528447c680351f2bcc98f1d85ff8029
+  newTag: 64555f2503b89f06229d168523308df99527e806
+apiVersion: kustomize.config.k8s.io/v1beta1
