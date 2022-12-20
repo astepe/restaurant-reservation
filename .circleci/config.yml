@@ -23,8 +23,9 @@ jobs:
           command: |
             git config user.email "$GITHUB_EMAIL"
             git config user.name "CircleCI User"
-            git checkout manifests
-            git pull origin manifests
+            git checkout k8s
+            git pull origin k8s
+            cd manifests
             kustomize edit set image restaurant-reservation=$DOCKER_LOGIN/restaurant-reservation:$CIRCLE_SHA1
       - add_ssh_keys:
           fingerprints:
@@ -34,10 +35,10 @@ jobs:
           command: |
             git config user.email "$GITHUB_EMAIL"
             git config user.name "CircleCI User"
-            git checkout manifests
-            git add kustomization.yaml
+            git checkout k8s
+            git add manifests/kustomization.yaml
             git commit -am "Bumps docker tag [skip ci]"
-            git push origin manifests
+            git push origin k8s
 
   argocd-configure:
     docker:
@@ -46,7 +47,7 @@ jobs:
       - checkout
       - run:
           name: Pull Updated code from repo
-          command: git pull origin manifests
+          command: git pull origin k8s
       - kubernetes/install
       - run:
           name: Update Kubeconfig Credentials
