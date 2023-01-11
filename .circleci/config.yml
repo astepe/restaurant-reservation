@@ -84,7 +84,7 @@ jobs:
 
   run-tests:
     docker:
-      - image: cimg/base:stable
+      - image: lukemathwalker/cargo-chef:latest-rust-1
     steps:
       - checkout
       - run:
