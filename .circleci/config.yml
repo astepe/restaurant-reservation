@@ -47,7 +47,9 @@ jobs:
       - checkout
       - run:
           name: Pull Updated code from repo
-          command: git pull origin k8s
+          command: |
+            git config pull.rebase false
+            git pull origin k8s
       - kubernetes/install
       - run:
           name: Update Kubeconfig Credentials
