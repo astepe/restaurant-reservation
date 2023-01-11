@@ -82,12 +82,28 @@ jobs:
           name: Wait for application to reach a synced and healthy state
           command: argocd app wait k8s-restaurant-reservation-argocd
 
+  run-tests:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: Run Tests
+          command: |
+            cd app
+            cargo test
+      - store_test_results:
+          path: app/target/test-reports
+
 workflows:
   build-and-deploy:
     jobs:
+      - run-tests
       - docker/publish:
           image: $DOCKER_LOGIN/restaurant-reservation
           tag: $CIRCLE_SHA1,latest
+          requires:
+            - run-tests
       - bump-docker-tag-kustomize:
           requires:
             - docker/publish
