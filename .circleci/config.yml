@@ -49,6 +49,8 @@ jobs:
           name: Pull Updated code from repo
           command: |
             git config pull.rebase false
+            git config user.email "$GITHUB_EMAIL"
+            git config user.name "CircleCI User"
             git pull origin k8s
       - kubernetes/install
       - run:
