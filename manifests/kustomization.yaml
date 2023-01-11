@@ -8,5 +8,5 @@ namespace: restaurant-reservation
 images:
 - name: restaurant-reservation
   newName: astepe/restaurant-reservation
-  newTag: ef1768e62b78085e015eb4fb51afe49564b413b0
+  newTag: ce60e11ca6348c74f003e67021e9555d97c70b39
 apiVersion: kustomize.config.k8s.io/v1beta1
