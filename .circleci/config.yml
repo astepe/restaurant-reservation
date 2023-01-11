@@ -48,7 +48,6 @@ jobs:
       - run:
           name: Pull Updated code from repo
           command: |
-            git config pull.rebase false
             git config user.email "$GITHUB_EMAIL"
             git config user.name "CircleCI User"
             git pull origin k8s
@@ -96,8 +95,6 @@ jobs:
           command: |
             cd app
             cargo test
-      - store_test_results:
-          path: app/target/test-reports
 
 workflows:
   build-and-deploy:
