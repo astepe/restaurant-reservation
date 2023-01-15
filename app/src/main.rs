@@ -1,19 +1,58 @@
-use rocket::{get, http::Status, serde::json::Json};
-use serde::Serialize;
+use chrono::prelude::*;
+use rocket::response::status;
+use rocket::{get, http::Status, post, serde::json::Json};
+use serde::de;
+use serde::{Deserialize, Serialize};
+use std::fmt;
 
 #[macro_use]
 extern crate rocket;
 
-
-// The derive "attribute macro" (i.e. any macro that is invoked by an attribute) 
+// The derive "attribute macro" (i.e. any macro that is invoked by an attribute)
 // takes a trait (AKA interface) -- in this case Serialize --
-// and figures out how to implement the required methods 
+// and figures out how to implement the required methods
 // of the trait for the struct that is defined below the macro
 // and adds this implementation to the struct at compile time.
 #[derive(Serialize)]
 pub struct GenericResponse {
     pub status: String,
     pub message: String,
+}
+
+struct NaiveDateTimeVisitor;
+
+impl<'de> de::Visitor<'de> for NaiveDateTimeVisitor {
+    type Value = NaiveDateTime;
+
+    fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+        write!(formatter, "a string represents chrono::NaiveDateTime")
+    }
+
+    fn visit_str<E>(self, s: &str) -> Result<Self::Value, E>
+    where
+        E: de::Error,
+    {
+        match NaiveDateTime::parse_from_str(s, "%Y-%m-%dT%H:%M:%S.%f") {
+            Ok(t) => Ok(t),
+            Err(_) => Err(de::Error::invalid_value(de::Unexpected::Str(s), &self)),
+        }
+    }
+}
+
+fn from_timestamp<'de, D>(d: D) -> Result<NaiveDateTime, D::Error>
+where
+    D: de::Deserializer<'de>,
+{
+    d.deserialize_str(NaiveDateTimeVisitor)
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct Reservation {
+    pub name: String,
+    pub email: String,
+    #[serde(deserialize_with = "from_timestamp")]
+    pub date: NaiveDateTime,
+    pub quantity: u8,
 }
 
 #[get("/")]
@@ -29,9 +68,16 @@ pub async fn index() -> Result<Json<GenericResponse>, Status> {
     Ok(Json(response_json))
 }
 
+#[post("/reservations", data = "<reservation>")]
+pub async fn post_reservation(reservation: Json<Reservation>) -> status::Created<&'static str> {
+    println!("Thing: {:?}", reservation);
+    status::Created::new("/reservations/1")
+        .body("{\"status\": \"Created\", \"message\": \"Reservation created\"}")
+}
+
 #[launch]
 fn rocket() -> _ {
-    rocket::build().mount("/", routes![index,])
+    rocket::build().mount("/", routes![index, post_reservation])
 }
 
 #[cfg(test)]
@@ -45,6 +91,31 @@ mod test {
         let client = Client::tracked(rocket()).expect("valid rocket instance");
         let response = client.get("/").dispatch();
         assert_eq!(response.status(), Status::Ok);
+        assert_eq!(
+            response.content_type(),
+            Some(rocket::http::ContentType::JSON)
+        );
+    }
+
+    #[test]
+    fn test_posts_valid_reservation() {
+        let client = Client::tracked(rocket()).expect("valid rocket instance");
+
+        let response = client
+            .post("/reservations")
+            .header(rocket::http::ContentType::JSON)
+            .json(&super::Reservation {
+                name: "Katinka Ingabogovinanana".to_string(),
+                email: "katinka@example.com".to_string(),
+                date: super::NaiveDateTime::parse_from_str(
+                    "2019-08-15T17:41:18.106108",
+                    "%Y-%m-%dT%H:%M:%S.%f",
+                )
+                .unwrap(),
+                quantity: 1,
+            })
+            .dispatch();
+        assert_eq!(response.status(), Status::Created);
         assert_eq!(
             response.content_type(),
             Some(rocket::http::ContentType::JSON)
